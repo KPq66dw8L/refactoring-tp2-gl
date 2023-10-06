@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="StatementPrinterTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-10-06T12:08:02" hostname="IPHONE_DE_JEAN" time="0.506">
+<testsuite name="StatementPrinterTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-10-06T12:57:14" hostname="IPHONE_DE_JEAN" time="0.478">
   <properties/>
-  <testcase name="exampleStatement()" classname="StatementPrinterTests" time="0.49"/>
+  <testcase name="exampleStatement()" classname="StatementPrinterTests" time="0.462"/>
   <testcase name="statementWithNewPlayTypes()" classname="StatementPrinterTests" time="0.015"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
