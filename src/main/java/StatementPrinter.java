@@ -18,13 +18,6 @@ public class StatementPrinter {
 
     // Create the root hash. We use a Map here, but it could be a JavaBean too.
     Map<String, Object> root = new HashMap<>();
-    // Put string "user" into the root
-    root.put("user", "Big Joe");
-
-    Template temp = cfg.getTemplate("test.ftlh");
-
-    Writer out = new FileWriter(new File("build/results/invoice.html"));
-    temp.process(root, out);
     // Fin de configuration de freemarker ---------------------------
 
     int totalAmount = 0;
@@ -32,7 +25,7 @@ public class StatementPrinter {
     String result = String.format("Statement for %s\n", invoice.customer);
 
     NumberFormat frmt = NumberFormat.getCurrencyInstance(Locale.US);
-
+    List<Map<String, Object>> performancesList = new ArrayList<>();
     for (Performance perf : invoice.performances) {
       Play play = plays.get(perf.playID);
       int priceToPay = 0;
@@ -62,11 +55,25 @@ public class StatementPrinter {
 
       // print line for this order
       result += String.format("  %s: %s (%s seats)\n", play.name, frmt.format(priceToPay), perf.audience);
+      Map<String, Object> perfData = new HashMap<>();
+      perfData.put("playName", play.name);
+      perfData.put("price", priceToPay);
+      perfData.put("audience", perf.audience);
+      performancesList.add(perfData);
       totalAmount += priceToPay;
     }
+    root.put("performances", performancesList);
+
     result += String.format("Amount owed is %s\n", frmt.format(totalAmount));
     result += String.format("You earned %s credits\n", volumeCredits);
-    return result; //TODO: .ftl freemarker for HTML
+    root.put("totalAmount", frmt.format(totalAmount));
+    root.put("fidelityPoints", frmt.format(volumeCredits));
+
+    Template temp = cfg.getTemplate("test.ftlh");
+    Writer out = new FileWriter(new File("build/results/invoice.html"));
+    temp.process(root, out);
+
+    return result;
   }
 
 }
