@@ -1,4 +1,4 @@
-public class Play {
+public abstract class Play {
 
   public String name;
   public String type;
@@ -7,4 +7,6 @@ public class Play {
     this.name = name;
     this.type = type;
   }
+
+  public abstract int computePrice(int audience);
 }

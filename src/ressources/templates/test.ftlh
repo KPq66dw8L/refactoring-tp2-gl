@@ -22,7 +22,7 @@
 </head>
 <body>
     <h2>Invoice</h2>
-    <p><b>Client</b> : BigCo</p>
+    <p><b>Client</b> : ${client}</p>
 
     <table>
 <tr>

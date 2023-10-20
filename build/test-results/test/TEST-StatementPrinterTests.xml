@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="StatementPrinterTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-10-20T15:43:11" hostname="DESKTOP-QOMSFJR" time="0.364">
+<testsuite name="StatementPrinterTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-10-20T16:17:46" hostname="DESKTOP-QOMSFJR" time="0.375">
   <properties/>
-  <testcase name="exampleStatement()" classname="StatementPrinterTests" time="0.359"/>
-  <testcase name="statementWithNewPlayTypes()" classname="StatementPrinterTests" time="0.004"/>
-  <system-out><![CDATA[DOCTYPEhtmlhtmllangenheadmetacharsetUTF8metanameviewportcontentwidthdevicewidthinitialscale10titleInvoicetitlestyletablethtdborder1pxsolidblackbordercollapsecollapsepadding10pxtextaligncentertablewidth60margin20px0thbackgroundcolorf2f2f2styleheadbodyh2Invoiceh2pbClientbBigCoptabletrthPieceththSeatssoldththPricethtrtrtdHamlettdtd55tdtd65000tdtrtrtdAsYouLikeIttdtd35tdtd58000tdtrtrtdOthellotdtd40tdtd50000tdtrtrtdcolspan2bTotalowedbtdtdb173000btdtrtrtdcolspan2bFidelitypointsearnedbtdtdb47btdtrtablepstylecolorredPaymentisrequiredunder30daysbWecanbreakyourkneesifyoudontdosobpbodyhtml
-]]></system-out>
+  <testcase name="exampleStatement()" classname="StatementPrinterTests" time="0.375"/>
+  <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
