@@ -1,17 +1,18 @@
 //import org.junit.Test;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.approvaltests.Approvals.verify;
 
 public class StatementPrinterTests {
 
     @Test
-    void exampleStatement() {
+    void exampleStatement() throws IOException, Exception {
 
         HashMap<String, Play> plays = new HashMap<>();
         plays.put("hamlet",  new Play("Hamlet", "tragedy"));

@@ -1,9 +1,32 @@
+import java.io.*;
 import java.text.NumberFormat;
 import java.util.*;
 
+import freemarker.template.*;
+
 public class StatementPrinter {
-//TODO: .ftl freemarker for HTML
-  public String print(Invoice invoice, HashMap<String, Play> plays) {
+  public String print(Invoice invoice, HashMap<String, Play> plays) throws IOException, TemplateException {
+
+    // Configuration de freemarker ----------------------------------
+    Configuration cfg = new Configuration(Configuration.VERSION_2_3_28);
+    cfg.setDirectoryForTemplateLoading(new File("src/ressources/templates"));
+    cfg.setDefaultEncoding("UTF-8");
+    cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
+    cfg.setLogTemplateExceptions(false);
+    cfg.setWrapUncheckedExceptions(true);
+    cfg.setSQLDateAndTimeTimeZone(TimeZone.getDefault());
+
+    // Create the root hash. We use a Map here, but it could be a JavaBean too.
+    Map<String, Object> root = new HashMap<>();
+    // Put string "user" into the root
+    root.put("user", "Big Joe");
+
+    Template temp = cfg.getTemplate("test.ftlh");
+
+    Writer out = new FileWriter(new File("build/results/invoice.html"));
+    temp.process(root, out);
+    // Fin de configuration de freemarker ---------------------------
+
     int totalAmount = 0;
     int volumeCredits = 0;
     String result = String.format("Statement for %s\n", invoice.customer);
@@ -16,8 +39,8 @@ public class StatementPrinter {
 
       switch (play.type) {
         case "tragedy":
-          priceToPay = 400;
-          if (perf.audience > 30) {
+          priceToPay = 400; //TODO: cette valeur devrait être dans l'objet tragedy
+          if (perf.audience > 30) { //TODO: cette opération devrait être dans l'objet tragedy
             priceToPay += 10 * (perf.audience - 30);
           }
           break;
@@ -43,7 +66,7 @@ public class StatementPrinter {
     }
     result += String.format("Amount owed is %s\n", frmt.format(totalAmount));
     result += String.format("You earned %s credits\n", volumeCredits);
-    return result;
+    return result; //TODO: .ftl freemarker for HTML
   }
 
 }
