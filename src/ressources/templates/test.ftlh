@@ -43,7 +43,7 @@
         </tr>
         <tr>
             <td colspan="2"><b>Fidelity points earned:</b></td>
-            <td><b>${fidelityPoints!}</b></td>
+            <td><b>${fidelityPoints}</b></td>
         </tr>
     </table>
 

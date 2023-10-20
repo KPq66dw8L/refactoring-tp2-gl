@@ -67,7 +67,7 @@ public class StatementPrinter {
     result += String.format("Amount owed is %s\n", frmt.format(totalAmount));
     result += String.format("You earned %s credits\n", volumeCredits);
     root.put("totalAmount", frmt.format(totalAmount));
-    root.put("fidelityPoints", frmt.format(volumeCredits));
+    root.put("fidelityPoints", volumeCredits);
 
     Template temp = cfg.getTemplate("test.ftlh");
     Writer out = new FileWriter(new File("build/results/invoice.html"));

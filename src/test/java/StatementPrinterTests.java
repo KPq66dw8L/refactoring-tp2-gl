@@ -4,10 +4,14 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 
 import static org.approvaltests.Approvals.verify;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StatementPrinterTests {
 
@@ -15,9 +19,9 @@ public class StatementPrinterTests {
     void exampleStatement() throws IOException, Exception {
 
         HashMap<String, Play> plays = new HashMap<>();
-        plays.put("hamlet",  new Play("Hamlet", "tragedy"));
-        plays.put("as-like",  new Play("As You Like It", "comedy"));
-        plays.put("othello",  new Play("Othello", "tragedy"));
+        plays.put("hamlet", new Play("Hamlet", "tragedy"));
+        plays.put("as-like", new Play("As You Like It", "comedy"));
+        plays.put("othello", new Play("Othello", "tragedy"));
 
         Invoice invoice = new Invoice("BigCo", List.of(
                 new Performance("hamlet", 55),
@@ -25,9 +29,18 @@ public class StatementPrinterTests {
                 new Performance("othello", 40)));
 
         StatementPrinter statementPrinter = new StatementPrinter();
-        var result = statementPrinter.print(invoice, plays);
+        statementPrinter.print(invoice, plays);
 
-        verify(result);
+        // Read the generated HTML content.
+        String generatedContent = Files.readString(Paths.get("build/results/invoice.html"));
+
+        // Read the approved HTML content.
+        String approvedContent = Files.readString(Paths.get("src/test/java/StatementPrinterTests.exampleStatement.approved.html"));
+
+        String cleanedApprovedContent = approvedContent.replaceAll("[^a-zA-Z0-9]", "");
+        String cleanedGeneratedContent = generatedContent.replaceAll("[^a-zA-Z0-9]", "");
+
+        assertEquals(cleanedApprovedContent, cleanedGeneratedContent);
     }
 
     @Test
