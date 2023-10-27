@@ -46,7 +46,9 @@
             <td><b>${fidelityPoints}</b></td>
         </tr>
     </table>
-
+    <#if promotionApplied>
+        <p>A promotion of $15 has been applied to your invoice due to your fidelity points.</p>
+    </#if>
     <p style="color:red;">Payment is required under 30 days. <b>We can break your knees if you don't do so.</b></p>
 </body>
 </html>

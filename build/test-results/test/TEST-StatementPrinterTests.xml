@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="StatementPrinterTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-10-27T13:00:15" hostname="IPHONE_DE_JEAN" time="1.456">
+<testsuite name="StatementPrinterTests" tests="4" skipped="0" failures="0" errors="0" timestamp="2023-10-27T14:16:09" hostname="IPHONE_DE_JEAN" time="1.759">
   <properties/>
-  <testcase name="exampleStatementTXT()" classname="StatementPrinterTests" time="0.753"/>
-  <testcase name="exampleStatementHTML()" classname="StatementPrinterTests" time="0.701"/>
+  <testcase name="exampleStatementTXT()" classname="StatementPrinterTests" time="0.776"/>
+  <testcase name="exampleStatementHTML()" classname="StatementPrinterTests" time="0.692"/>
+  <testcase name="promotionAppliedStatementTXT()" classname="StatementPrinterTests" time="0.133"/>
+  <testcase name="promotionAppliedStatementHTML()" classname="StatementPrinterTests" time="0.154"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

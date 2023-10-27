@@ -19,7 +19,9 @@ public class StatementPrinterTests {
         plays.put("as-like", new Comedy("As You Like It"));
         plays.put("othello", new Tragedy("Othello"));
 
-        Invoice invoice = new Invoice("BigCo", List.of(
+        Customer bigCo = new Customer("BigCo");
+
+        Invoice invoice = new Invoice(bigCo, List.of(
                 new Performance("hamlet", 55),
                 new Performance("as-like", 35),
                 new Performance("othello", 40)));
@@ -38,7 +40,9 @@ public class StatementPrinterTests {
         plays.put("as-like", new Comedy("As You Like It"));
         plays.put("othello", new Tragedy("Othello"));
 
-        Invoice invoice = new Invoice("BigCo", List.of(
+        Customer bigCo = new Customer("BigCo");
+
+        Invoice invoice = new Invoice(bigCo, List.of(
                 new Performance("hamlet", 55),
                 new Performance("as-like", 35),
                 new Performance("othello", 40)));
@@ -46,27 +50,53 @@ public class StatementPrinterTests {
         StatementPrinter statementPrinter = new StatementPrinter();
         statementPrinter.printHTML(invoice, plays);
 
-        // Read the approved HTML content.
-        String result = Files.readString(Paths.get("src/test/java/StatementPrinterTests.exampleStatementHTML.approved.txt"));
+        String result = Files.readString(Paths.get("build/results/invoice.html"));
+
+        verify(result);
+    }
+    @Test
+    void promotionAppliedStatementTXT() throws IOException {
+
+        HashMap<String, Play> plays = new HashMap<>();
+        plays.put("hamlet", new Tragedy("Hamlet"));
+        plays.put("as-like", new Comedy("As You Like It"));
+        plays.put("othello", new Tragedy("Othello"));
+
+        Customer bigCo = new Customer("BigCo");
+        bigCo.fidelityPoints = 155; // Setting the fidelity points over 150 to apply the promotion
+
+        Invoice invoice = new Invoice(bigCo, List.of(
+                new Performance("hamlet", 55),
+                new Performance("as-like", 35),
+                new Performance("othello", 40)));
+
+        StatementPrinter statementPrinter = new StatementPrinter();
+        String result = statementPrinter.printTXT(invoice, plays);
 
         verify(result);
     }
 
+    @Test
+    void promotionAppliedStatementHTML() throws IOException, Exception {
 
-//    @Test
-//    void statementWithNewPlayTypes() {
-//
-//        HashMap<String, Play> plays = new HashMap<>();
-//        plays.put("henry-v",  new Play("Henry V", "history"));
-//        plays.put("as-like",  new Play("As You Like It", "pastoral"));
-//
-//        Invoice invoice = new Invoice("BigCo", List.of(
-//                new Performance("henry-v", 53),
-//                new Performance("as-like", 55)));
-//
-//        StatementPrinter statementPrinter = new StatementPrinter();
-//        Assertions.assertThrows(Error.class, () -> {
-//            statementPrinter.print(invoice, plays);
-//        });
-//    }
+        HashMap<String, Play> plays = new HashMap<>();
+        plays.put("hamlet", new Tragedy("Hamlet"));
+        plays.put("as-like", new Comedy("As You Like It"));
+        plays.put("othello", new Tragedy("Othello"));
+
+        Customer bigCo = new Customer("BigCo");
+        bigCo.fidelityPoints = 155; // Setting the fidelity points over 150 to apply the promotion
+
+        Invoice invoice = new Invoice(bigCo, List.of(
+                new Performance("hamlet", 55),
+                new Performance("as-like", 35),
+                new Performance("othello", 40)));
+
+        StatementPrinter statementPrinter = new StatementPrinter();
+        statementPrinter.printHTML(invoice, plays);
+
+        String result = Files.readString(Paths.get("build/results/invoice.html"));
+        verify(result);
+    }
+
 }

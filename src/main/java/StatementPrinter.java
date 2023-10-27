@@ -53,6 +53,9 @@ public class StatementPrinter {
     }
     result += String.format("Amount owed is %s\n", root.get("totalAmount"));
     result += String.format("You earned %s credits\n", root.get("fidelityPoints"));
+    if ((Boolean) root.get("promotionApplied")) {
+      result += "A promotion of $15 has been applied to your invoice due to your fidelity points.\n";
+    }
 
     String filePath = "build/results/invoice.txt";
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {

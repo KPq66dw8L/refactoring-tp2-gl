@@ -3,10 +3,11 @@ import java.text.NumberFormat;
 
 public class Invoice {
 
-  public String customer;
+  public Customer customer;
   public List<Performance> performances;
+  public boolean promotionApplied = false;
 
-  public Invoice(String customer, List<Performance> performances) {
+  public Invoice(Customer customer, List<Performance> performances) {
     this.customer = customer;
     this.performances = performances;
   }
@@ -15,7 +16,7 @@ public class Invoice {
     Map<String, Object> root = new HashMap<>();
     int totalAmount = 0;
     int volumeCredits = 0;
-    root.put("client", customer);
+    root.put("client", customer.name);
     List<Map<String, Object>> performancesList = new ArrayList<>();
 
     for (Performance perf : performances) {
@@ -32,10 +33,22 @@ public class Invoice {
       totalAmount += priceToPay;
     }
 
+    int totalFidelityPoints = customer.fidelityPoints + volumeCredits;  // Calculate total fidelity points before applying any promotions
+
+    if (totalFidelityPoints > 150) {
+      totalAmount -= 15;
+      volumeCredits = totalFidelityPoints - 150;
+      this.promotionApplied = true;
+    } else {
+      customer.fidelityPoints = totalFidelityPoints;
+    }
+
+
     NumberFormat frmt = NumberFormat.getCurrencyInstance(Locale.US);
     root.put("performances", performancesList);
     root.put("totalAmount", frmt.format(totalAmount));
     root.put("fidelityPoints", volumeCredits);
+    root.put("promotionApplied", promotionApplied);
 
     return root;
   }
