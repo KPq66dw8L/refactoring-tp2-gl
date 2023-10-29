@@ -12,7 +12,7 @@ import static org.approvaltests.Approvals.verify;
 public class StatementPrinterTests {
 
     @Test
-    void exampleStatementTXT() throws IOException {
+    void exampleStatementTXT() throws IOException, Exception {
 
         HashMap<String, Play> plays = new HashMap<>();
         plays.put("hamlet", new Tragedy("Hamlet"));
@@ -27,7 +27,8 @@ public class StatementPrinterTests {
                 new Performance("othello", 40)));
 
         StatementPrinter statementPrinter = new StatementPrinter();
-        String result = statementPrinter.printTXT(invoice, plays);
+        statementPrinter.generateStatementData(invoice, plays);
+        String result = statementPrinter.printTXT();
 
         verify(result);
     }
@@ -48,7 +49,8 @@ public class StatementPrinterTests {
                 new Performance("othello", 40)));
 
         StatementPrinter statementPrinter = new StatementPrinter();
-        statementPrinter.printHTML(invoice, plays);
+        statementPrinter.generateStatementData(invoice, plays);
+        statementPrinter.printHTML();
 
         String result = Files.readString(Paths.get("build/results/invoice.html"));
 
@@ -71,7 +73,8 @@ public class StatementPrinterTests {
                 new Performance("othello", 40)));
 
         StatementPrinter statementPrinter = new StatementPrinter();
-        String result = statementPrinter.printTXT(invoice, plays);
+        statementPrinter.generateStatementData(invoice, plays);
+        String result = statementPrinter.printTXT();
 
         verify(result);
     }
@@ -93,7 +96,8 @@ public class StatementPrinterTests {
                 new Performance("othello", 40)));
 
         StatementPrinter statementPrinter = new StatementPrinter();
-        statementPrinter.printHTML(invoice, plays);
+        statementPrinter.generateStatementData(invoice, plays);
+        statementPrinter.printHTML();
 
         String result = Files.readString(Paths.get("build/results/invoice.html"));
         verify(result);

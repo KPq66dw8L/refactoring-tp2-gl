@@ -6,19 +6,34 @@ import freemarker.template.*;
 public class StatementPrinter {
 
   private final Configuration cfg;
+  private Map<String, Object> statementData;
 
   public StatementPrinter() {
     cfg = configureFreeMarker();
   }
 
-  public void printHTML(Invoice invoice, HashMap<String, Play> plays) throws IOException, TemplateException {
-    Map<String, Object> root = invoice.generateDataForStatement(plays);
-    toHTML(root);
+//  public void printHTML(Invoice invoice, HashMap<String, Play> plays) throws IOException, TemplateException {
+//    Map<String, Object> root = invoice.generateDataForStatement(plays);
+//    toHTML(root);
+//  }
+//
+//  public String printTXT(Invoice invoice, HashMap<String, Play> plays) throws IOException{
+//    Map<String, Object> root = invoice.generateDataForStatement(plays);
+//    return toText(root);
+//  }
+
+  public void printHTML() throws IOException, TemplateException {
+    if (this.statementData == null) {
+      throw new IllegalStateException("Statement data has not been generated. Call generateStatementData() first.");
+    }
+    toHTML(this.statementData);
   }
 
-  public String printTXT(Invoice invoice, HashMap<String, Play> plays) throws IOException{
-    Map<String, Object> root = invoice.generateDataForStatement(plays);
-    return toText(root);
+  public String printTXT() throws IOException {
+    if (this.statementData == null) {
+      throw new IllegalStateException("Statement data has not been generated. Call generateStatementData() first.");
+    }
+    return toText(this.statementData);
   }
 
   private Configuration configureFreeMarker() {
@@ -35,6 +50,10 @@ public class StatementPrinter {
     cfg.setSQLDateAndTimeTimeZone(TimeZone.getDefault());
 
     return cfg;
+  }
+
+  public void generateStatementData(Invoice invoice, HashMap<String, Play> plays) {
+    this.statementData = invoice.generateDataForStatement(plays);
   }
 
 
